@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+        <item>Manhã</item>
+        <item>Meio dia</item>
+        <item>Tarde</item>
+        <item>Noite</item>
+        <item>Antes de mimir</item>
+    </string-array>
+</resources>

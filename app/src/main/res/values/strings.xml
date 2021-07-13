@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TodoList2.0</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo_hint">Digite aqui o que você vai fazer</string>
+    <string name="add_button">Adicionar to do</string>
+    <string name="error_add">Ocorreu um erro inesperado :(</string>
+    <string name="button_remove">Tarefa feita</string>
+</resources>
