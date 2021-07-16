@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.todolist20.R
+import com.example.todolist20.TodoApplication
 import com.example.todolist20.database.AppDatabase
 import com.example.todolist20.model.Todo
+import com.example.todolist20.viewmodel.TodoViewModel
+import com.example.todolist20.viewmodel.TodoViewModelFactory
 
 class TodoAdapter(private val context: Context, private var todoList: MutableList<Todo>):
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
@@ -20,13 +24,6 @@ class TodoAdapter(private val context: Context, private var todoList: MutableLis
         val todoCategory: TextView = itemView.findViewById(R.id.todo_category)
         val removeButton: Button = itemView.findViewById(R.id.remove_button)
     }
-
-
-    /*val db = Room.databaseBuilder(
-        context,
-        AppDatabase::class.java,
-        "todo-list"
-    ).build()*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoAdapter.TodoViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -47,16 +44,12 @@ class TodoAdapter(private val context: Context, private var todoList: MutableLis
 
     fun addTodo(todo: Todo) {
         todoList.add(todo)
-        //db.todoDao().insertTodo(todo)
-        //notifyItemInserted(todoList.size - 1)
         notifyDataSetChanged()
     }
 
     private fun removeTodo(todo: Todo) {
         if(todoList.remove(todo)) {
-            //db.todoDao().delete(todo)
             notifyDataSetChanged()
         }
     }
-
 }

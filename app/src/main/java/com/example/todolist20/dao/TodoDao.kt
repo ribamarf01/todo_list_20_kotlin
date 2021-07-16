@@ -10,11 +10,11 @@ import com.example.todolist20.model.Todo
 interface TodoDao {
 
     @Query("SELECT * FROM todo_items")
-    fun getAll() : MutableList<Todo>
+    suspend fun getAll() : MutableList<Todo>
 
     @Insert
-    fun insertTodo(todo: Todo)
+    suspend fun insertTodo(todo: Todo)
 
     @Delete
-    fun delete(todo: Todo)
+    suspend fun delete(todo: Todo)
 }

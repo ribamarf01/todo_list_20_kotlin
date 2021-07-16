@@ -6,15 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.room.Room
 import com.example.todolist20.R
+import com.example.todolist20.TodoApplication
 import com.example.todolist20.adapter.TodoAdapter
-import com.example.todolist20.database.AppDatabase
 import com.example.todolist20.model.Todo
+import com.example.todolist20.viewmodel.TodoViewModel
+import com.example.todolist20.viewmodel.TodoViewModelFactory
+import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
+
+    private val viewModel: TodoViewModel by activityViewModels {
+        TodoViewModelFactory(
+            (activity?.application as TodoApplication).database.todoDao()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +44,9 @@ class ListFragment : Fragment() {
         }
 
         val recyclerView: RecyclerView = view.findViewById(R.id.todos_recycler_view)
+
         val adapter = TodoAdapter(requireContext(), mutableListOf())
+
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
