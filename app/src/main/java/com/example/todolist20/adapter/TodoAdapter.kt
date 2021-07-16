@@ -29,7 +29,7 @@ class TodoAdapter(private val context: Context, private var todoList: MutableLis
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.todo_item, parent, false)
 
-        return TodoViewHolder(view);
+        return TodoViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TodoAdapter.TodoViewHolder, position: Int) {

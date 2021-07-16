@@ -1,6 +1,7 @@
 package com.example.todolist20.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,19 @@ class ListFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.todos_recycler_view)
 
-        val adapter = TodoAdapter(requireContext(), mutableListOf())
+        var list: MutableList<Todo> = mutableListOf(
+            Todo("Dormir bem muito", "Noite")
+        )
+
+        Log.d(list.toString(), "Todo List: ")
+
+        lifecycleScope.launch {
+            list = viewModel.allTodos() // Retorna todos os todos cadastrados
+        }
+
+        Log.d(list.toString(), "")
+
+        val adapter = TodoAdapter(requireContext(), list)
 
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
