@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class Todo(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo val todo: String,
-    @ColumnInfo val category: String
+    @ColumnInfo val category: String,
+    @ColumnInfo val done: Boolean = false
     )

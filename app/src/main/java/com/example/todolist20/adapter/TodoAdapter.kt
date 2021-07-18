@@ -42,11 +42,6 @@ class TodoAdapter(private var todoList: MutableList<Todo>, private val onDeleteC
 
     override fun getItemCount() = todoList.size
 
-    fun addTodo(todo: Todo) {
-        todoList.add(todo)
-        notifyDataSetChanged()
-    }
-
     private fun removeTodo(todo: Todo) {
         if(todoList.remove(todo)) {
             notifyDataSetChanged()

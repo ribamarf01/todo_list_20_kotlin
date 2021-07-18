@@ -13,9 +13,13 @@ class TodoViewModel(private val TodoDao: TodoDao): ViewModel() {
         TodoDao.insertTodo(todo)
     }
 
-    suspend fun deleteTodo(todo: Todo) {
-        TodoDao.delete(todo)
+    suspend fun closeTodo(id: Int) {
+        TodoDao.closeTodo(id)
     }
+
+    suspend fun getOpen() = TodoDao.getOpen()
+
+    suspend fun getDone() = TodoDao.getDone()
 }
 
 class TodoViewModelFactory(private val todoDao: TodoDao): ViewModelProvider.Factory {

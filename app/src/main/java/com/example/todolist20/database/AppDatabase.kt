@@ -20,7 +20,7 @@ abstract class AppDatabase: RoomDatabase() {
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE?: synchronized(this) {
                 val instance = Room
-                    .databaseBuilder(context, AppDatabase::class.java, "todo_database")
+                    .databaseBuilder(context, AppDatabase::class.java, "todo_database_2")
                     .build()
 
                 INSTANCE = instance
