@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.todolist20.dao.TodoDao
 import com.example.todolist20.model.Todo
 
-@Database(entities = [Todo::class], version = 1)
+@Database(entities = [Todo::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun todoDao(): TodoDao
@@ -20,7 +20,7 @@ abstract class AppDatabase: RoomDatabase() {
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE?: synchronized(this) {
                 val instance = Room
-                    .databaseBuilder(context, AppDatabase::class.java, "app_database")
+                    .databaseBuilder(context, AppDatabase::class.java, "todo_database")
                     .build()
 
                 INSTANCE = instance

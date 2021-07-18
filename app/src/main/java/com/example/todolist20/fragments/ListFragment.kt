@@ -1,7 +1,6 @@
 package com.example.todolist20.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,21 +45,13 @@ class ListFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.todos_recycler_view)
 
-        var list: MutableList<Todo> = mutableListOf(
-            Todo("Dormir bem muito", "Noite")
-        )
-
-        Log.d(list.toString(), "Todo List: ")
-
         lifecycleScope.launch {
-            list = viewModel.allTodos() // Retorna todos os todos cadastrados
+            recyclerView.adapter = TodoAdapter(viewModel.allTodos()) {
+                lifecycleScope.launch {
+                    viewModel.deleteTodo(Todo(id = it.id, todo = it.todo, category = it.category))
+                }
+            }
         }
-
-        Log.d(list.toString(), "")
-
-        val adapter = TodoAdapter(requireContext(), list)
-
-        recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
 
@@ -70,7 +61,12 @@ class ListFragment : Fragment() {
             val todoCategory: String = spinner.selectedItem.toString()
 
             if(todoText != "") {
-                adapter.addTodo(Todo(todoText, todoCategory))
+                val todo = Todo(todo = todoText, category = todoCategory)
+                lifecycleScope.launch {
+                    viewModel.insertTodo(todo)
+                }
+                // recyclerView.adapter!!.notifyDataSetChanged()
+                (recyclerView.adapter!! as TodoAdapter).addTodo(todo)
                 view.findViewById<EditText>(R.id.todo_text_input).text.clear()
             } else Toast.makeText(requireContext(), R.string.error_add ,Toast.LENGTH_SHORT).show()
         }

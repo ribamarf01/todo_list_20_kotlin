@@ -1,22 +1,21 @@
 package com.example.todolist20.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.todolist20.R
 import com.example.todolist20.TodoApplication
-import com.example.todolist20.database.AppDatabase
 import com.example.todolist20.model.Todo
+import androidx.lifecycle.lifecycleScope
 import com.example.todolist20.viewmodel.TodoViewModel
 import com.example.todolist20.viewmodel.TodoViewModelFactory
 
-class TodoAdapter(private val context: Context, private var todoList: MutableList<Todo>):
+class TodoAdapter(private var todoList: MutableList<Todo>, private val onDeleteClicked: (Todo) -> Unit):
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     class TodoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -36,6 +35,7 @@ class TodoAdapter(private val context: Context, private var todoList: MutableLis
         holder.todoTitle.text = todoList[position].todo
         holder.todoCategory.text = todoList[position].category
         holder.removeButton.setOnClickListener {
+            onDeleteClicked(todoList[position])
             removeTodo(todoList[position])
         }
     }
